@@ -3,12 +3,14 @@ name = "project3"
 version = "0.1.0"
 description = "MVC app"
 authors = ["OliveRoquesUNCA <jroques@unca.edu>"]
-readme = "README.md"
+readme = "../README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = "^0.110.2"
 uvicorn = "^0.29.0"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.29"}
+asyncpg = "^0.29.0"
 
 
 [tool.poetry.group.dev.dependencies]
