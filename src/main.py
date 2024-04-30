@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.future import select
 
@@ -46,6 +47,22 @@ async def films():
                 }
             )
     return results
+
+@app.get("/film/{id}", response_class=HTMLResponse)
+async def film(id: int):
+    with open("ui/dist/film.html") as file:
+        return file.read()
+    
+@app.get("/api/v1/film/{id}")
+async def get_film(id: int):
+    Film = await auto_models.get("film")
+    result = []
+    async with AsyncSession(engine) as session:
+        film = await session.execute(select(Film).where(Film.film_id == id))
+        result.append(film.scalar())
+
+    
+
 
 
 app.mount("/", StaticFiles(directory="ui/dist", html=True), name="ui")
