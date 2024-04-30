@@ -58,8 +58,8 @@ async def get_film(id: int):
     Film = await auto_models.get("film")
     result = []
     async with AsyncSession(engine) as session:
-        film = await session.execute(select(Film).where(Film.id == id))
-        result.append(film.scalars.all())
+        film = await session.execute(select(Film).where(Film.film_id == id))
+        result.append(film.scalar())
 
     
 
